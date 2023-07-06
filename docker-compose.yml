@@ -1,6 +1,25 @@
 version : "3.3"
-services : 
-  web :
-   build : .
-   ports :
-       - "8001:8001"
+services:
+  web:
+    image: zenisis/todoapp:v2
+    deploy:
+        replicas: 2
+    ports:
+      - "8001-8005:8001"
+    volumes:
+      - my_django_volume:/app
+  db:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=my_root_password
+MYSQL_DATABASE=studentapp
+MYSQL_USER=root
+MYSQL_PASSWORD=1234
+"
+volumes:
+  my_django_volume:
+    external: true
+   
+
